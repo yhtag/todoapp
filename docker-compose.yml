@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  tododb:
+    image: mariadb:latest
+    container_name: tododb
+    environment:
+      MARIADB_USER: yehtetaung
+      MARIADB_PASSWORD: tododb
+      MARIADB_DATABASE: todolist
+      MARIADB_ROOT_PASSWORD: Rootsystem32
+    networks:
+      - todoapp
+    restart: always
+
+  todo-api:
+    image: todo-api
+    container_name: todo-api
+    ports:
+      - "8000:8000"
+    networks:
+      - todoapp
+    depends_on:
+      - tododb
+    restart: always
+
+  todo-front:
+    image: todo-front
+    container_name: todo-front
+    ports:
+      - "8080:80"
+    networks:
+      - todoapp
+    restart: always
+
+networks:
+  todoapp:
+    driver: bridge
+
