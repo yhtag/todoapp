@@ -18,19 +18,16 @@ services:
     container_name: todo-api
     ports:
       - "8000:8000"
+    environment:
+      DB_USER: yehtetaung
+      DB_PASS: tododb
+      DB_HOST: tododb
+      DB_PORT: 3306
+      DB_NAME: todolist
     networks:
       - todoapp
     depends_on:
       - tododb
-    restart: always
-
-  todo-front:
-    image: todo-front
-    container_name: todo-front
-    ports:
-      - "8080:80"
-    networks:
-      - todoapp
     restart: always
 
 networks:

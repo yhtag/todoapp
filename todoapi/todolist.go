@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"os"
 	"net/http"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -14,7 +15,9 @@ import (
 )
 
 
-var db, _ = gorm.Open("mysql", "yehtetaung:tododb@tcp(tododb:3306)/todolist?charset=utf8&parseTime=True&loc=Local")
+//var db, _ = gorm.Open("mysql", "yehtetaung:tododb@tcp(tododb:3306)/todolist?charset=utf8&parseTime=True&loc=Local")
+var dbURL = os.ExpandEnv("${DB_USER}:${DB_PASS}@tcp(${DB_HOST}:${DB_PORT})/${DB_NAME}?charset=utf8&parseTime=True&loc=Local")
+var db, _ = gorm.Open("mysql", dbURL)
 
 type TodoItemModel struct{
 	Id int `gorm:"primary_key"`
@@ -116,6 +119,8 @@ func init() {
 }
 
 func main() {
+	//fmt.Printf("DB_URL: %s\n", dbURL)
+
 	defer db.Close()
 
 	db.Debug().DropTableIfExists(&TodoItemModel{})
