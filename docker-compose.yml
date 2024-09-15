@@ -30,7 +30,18 @@ services:
       - tododb
     restart: always
 
+  todo-front:
+    image: todo-front
+    container_name: todo-front
+    ports:
+      - "8080:80"
+    environment:
+      TODO_API_HOST: "172.17.0.1"
+      TODO_API_PORT: "8000"
+    networks:
+      - todoapp
+    restart: always
+
 networks:
   todoapp:
     driver: bridge
-
