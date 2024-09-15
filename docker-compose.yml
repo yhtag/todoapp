@@ -14,7 +14,7 @@ services:
     restart: always
 
   todo-api:
-    image: todo-api
+    image: dckre20058568/todo-api:latest
     container_name: todo-api
     ports:
       - "8000:8000"
@@ -31,7 +31,7 @@ services:
     restart: always
 
   todo-front:
-    image: todo-front
+    image: dckre20058568/todo-front:latest
     container_name: todo-front
     ports:
       - "8080:80"
